@@ -1,27 +1,22 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import '../stylesheets/index.scss';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import React from 'react';
 
-const theme = createMuiTheme({
-	typography: {
-		fontFamily: [
-			'-apple-system',
-			'BlinkMacSystemFont',
-			'"Segoe UI"',
-			'Roboto',
-			'"Helvetica Neue"',
-			'Arial',
-			'sans-serif',
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
-		].join(','),
-	},
-	palette: { primary: { main: '#007cff' } },
-});
+import '../stylesheets/index.scss';
+import theme from '../theme';
 
 function App({ Component, pageProps }) {
+	React.useEffect(() => {
+		// Remove the server-side injected CSS.
+		const jssStyles = document.querySelector('#jss-server-side');
+		if (jssStyles) {
+			jssStyles.parentElement.removeChild(jssStyles);
+		}
+	}, []);
+
 	return (
 		<ThemeProvider theme={theme}>
+			<CssBaseline />
 			<Component {...pageProps} />
 		</ThemeProvider>
 	);
